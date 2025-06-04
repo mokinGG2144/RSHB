@@ -1,0 +1,135 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель</title>
+     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <!-- Навигация как на главной -->
+    <nav class="navbar navbar-expand-lg text-white">
+        <div class="container">
+            <a class="navbar-brand text-white" href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Логотип" width="150">
+            </a>
+            <button class="navbar-toggler" 
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" 
+                aria-expanded="false" 
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+    <div class="navbar-nav ms-auto">
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('profile') }}" class="btn btn-outline-light me-2">Профиль</a>
+            {% if current_user.is_admin %}
+                
+            {% endif %}
+            <a href="{{ url_for('logout') }}" class="btn btn-outline-light">Выйти</a>
+        {% else %}
+            <a href="{{ url_for('auth') }}" class="btn btn-outline-light">Вход в аккаунт</a>
+        {% endif %}
+    </div>
+</div> 
+    </div>
+</nav>
+
+    <!-- Основной контент -->
+    <div class="container mt-4 flex-grow-1">
+        <h2 class="text-success mb-4">Панель администратора</h2>
+        
+        <div class="table-responsive">
+            <table class="table table-hover table-striped bg-white rounded shadow">
+                <thead class="table-success">
+                    <tr>
+                        <th>ID</th>
+                        <th>Тип техники</th>
+                        <th>Модель</th>
+                        <th>Статус</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for request in requests %}
+                    <tr>
+                        <td>{{ request.id }}</td>
+                        <td>{{ request.equipment_type }}</td>
+                        <td>{{ request.model_number }}</td>
+                        <td>
+                            <select class="form-select status-select" data-id="{{ request.id }}">
+                                <option value="Новая" {{ 'selected' if request.status == 'Новая' }}>Новая</option>
+                                <option value="В работе" {{ 'selected' if request.status == 'В работе' }}>В работе</option>
+                                <option value="Завершено" {{ 'selected' if request.status == 'Завершено' }}>Завершено</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-danger delete-btn" data-id="{{ request.id }}">
+                                <i class="bi bi-trash"></i> Удалить
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Подвал как на главной -->
+    <footer class="footer mt-auto">
+        <div class="container text-center">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Логотип" width="120" class="mb-3">
+            <nav class="footer-links">
+                <a href="#" onclick="showContent('reviews')" class="text-white mx-3">Отзывы</a>
+                <a href="#" onclick="showContent('support')" class="text-white mx-3">Поддержка</a>
+            </nav>
+            
+            <div id="reviews" class="content-block mt-3">
+                <h3>Отзывы клиентов</h3>
+                <!-- Содержимое отзывов -->
+            </div>
+            
+            <div id="support" class="content-block mt-3">
+                <h3>Техническая поддержка</h3>
+                <p>Телефон: +7 (999) 999-99-99</p>
+            </div>
+        </div>
+    </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    // Функции для управления контентом
+    function showContent(contentId) {
+        document.querySelectorAll('.content-block').forEach(block => {
+            block.style.display = 'none';
+        });
+        document.getElementById(contentId).style.display = 'block';
+    }
+
+    // Обработчики для админ-панели
+    document.querySelectorAll('.status-select').forEach(select => {
+        select.addEventListener('change', function() {
+            fetch(`/update_status/${this.dataset.id}`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({status: this.value})
+            });
+        });
+    });
+
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            if(confirm('Вы уверены, что хотите удалить эту заявку?')) {
+                fetch(`/delete_request/${this.dataset.id}`, {
+                    method: 'DELETE'
+                }).then(() => window.location.reload());
+            }
+        });
+    });
+    </script>
+</body>
+</html>

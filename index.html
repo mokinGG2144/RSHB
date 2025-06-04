@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>РСХБ</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    
+</head>
+<body class="index-page">
+<audio id="successSound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
+    <!-- Навигация -->
+ <nav class="navbar navbar-expand-lg text-white">
+    <div class="container">
+        <a class="navbar-brand text-white" href="{{ url_for('index') }}">
+            <img src="{{ url_for('static', filename='images/logo.png') }}"></a>
+
+        <button class="navbar-toggler" 
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" 
+                aria-expanded="false" 
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+    <div class="navbar-nav ms-auto">
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('profile') }}" class="btn btn-outline-light me-2">Профиль</a>
+            {% if current_user.is_admin %}
+                <a href="{{ url_for('admin') }}" class="btn btn-outline-light me-2">Админ-панель</a>
+            {% endif %}
+            <a href="{{ url_for('logout') }}" class="btn btn-outline-light">Выйти</a>
+        {% else %}
+            <a href="{{ url_for('auth') }}" class="btn btn-outline-light">Вход в аккаунт</a>
+        {% endif %}
+    </div>
+</div> 
+    </div>
+</nav>
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>ДОБРО ПОЖАЛОВАТЬ</h1>
+            <button class="hero-button">К заявкам</button>
+        </div>
+        <img src="static/images/scooter.png" alt="Изображение 1" class="hero-image hero-image-left">
+        <img src="static/images/bike.png" alt="Изображение 2" class="hero-image hero-image-right">
+    </div>
+    
+ 
+    
+
+   <div class="toy-transport-block">
+    <div class="row justify-content-center g-3"> 
+        <div class="col-12 col-sm-6 col-lg-4">
+            <div class="toy-transport h-100">
+                <div class="transport-info">
+                    <button class="transport-button w-100" onclick="showContent('efficiency')">
+                        Эффективность работы
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-4">
+            <div class="toy-transport h-100">
+                <div class="transport-info">
+                    <button class="transport-button w-100" onclick="showContent('quality')">
+                        Гарантия качества
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-4">
+            <div class="toy-transport h-100">
+                <div class="transport-info">
+                    <button class="transport-button w-100" onclick="showContent('staff')">
+                        Опытные сотрудники
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+    <!-- Блоки с контентом (изначально скрыты) -->
+    <div id="efficiency" class="content-block" style="display: none;">
+        <h2>Эффективность работы</h2>
+        <p>Наша система автоматизирует обработку заявок, сокращая время реагирования до 30%.</p>
+        <p>🖨️ Автоматическое распределение задач по типу устройства (принтер, ПК, МФУ) и срочности.</p>
+            <p>🖨️ Онлайн-статусы: «Диагностика», «Ремонт», «Готово» — контроль в реальном времени.</p>
+            <p>🖨️ Интеграция с инвентаризационной базой: автоматическое отображение модели и истории поломок.</p>
+            <p>Больше не теряйте заявки — ваша оргтехника будет работать как часы!</p>
+    </div>
+    
+    <div id="quality" class="content-block" style="display: none;">
+        <h2>Гарантия качества</h2>
+        <p>Мы используем проверенные технологии и строгие стандарты контроля:</p>
+            <p>💻 3-этапный контроль: диагностика, ремонт, тестирование после сборки.</p>
+            <p>💻 Используем оригинальные запчасти и сертифицированные комплектующие.</p>
+            <p>💻 Отчеты с фотофиксацией этапов ремонта — полная прозрачность для клиента.</p>
+            <p>Ваш репутация — наш приоритет. Работаем на результат, а не на скорость.</p>
+    </div>
+    
+    <div id="staff" class="content-block" style="display: none;">
+        <h2>Опытные сотрудники</h2>
+        <p>Над системой работают профессионалы с 10-летним опытом в сфере ремонта:</p>
+            <p>🔧 Поддержка 24/7 для экстренных случае.</p>
+            <p>🔧 Узкая специализация: отдельные команды для работы с оргтехникой HP, Epson, Dell и др.</p>
+            <p>🔧 Гарантия на работы: 6 месяцев на все виды ремонта.</p>
+            <p>Не тратьте время на поиск мастеров — мы уже знаем, как вам помочь!</p>
+    </div>
+    
+    <!-- Главная страница -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <!-- Блок создания заявки -->
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="card shadow">
+                    <div class="card-header bg-white text-center">
+                        <h4 class="text-success">Новая заявка</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="requestForm">
+                            <div class="mb-3">
+                                <label>Тип техники</label>
+                                <select class="form-select" id="equipmentType" required>
+                                    <option value="">Выберите тип</option>
+                                    <option>Принтер</option>
+                                    <option>Сканер</option>
+                                    <option>Компьютер</option>
+                                    <option>Ксерокс</option>
+                                    <option>Ноутбук</option>
+                                    <option>Замена картриджей</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label>Модель/инвентарный номер</label>
+                                <input type="text" class="form-control" id="modelNumber" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label>Описание проблемы</label>
+                                <textarea class="form-control" id="problemDescription" rows="3" required></textarea>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label>Срочность:</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="urgency" id="low" value="Низкая" checked>
+                                    <label class="form-check-label" for="low">Низкая</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="urgency" id="medium" value="Средняя">
+                                    <label class="form-check-label" for="medium">Средняя</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="urgency" id="high" value="Высокая">
+                                    <label class="form-check-label" for="high">Высокая</label>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100">Отправить</button>
+                        <div class="success-notification" id="successNotification">
+    <div class="success-icon"></div>
+    Заявка успешно создана!
+</div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer index-footer">
+        <div class="container text-center">
+            <!-- Логотип -->
+            <img src="static/images/logo.png" alt="Логотип" width="120" class="d-inline-block align-text-top"></a>
+            <!-- Ссылки -->
+            <nav class="footer-links">
+                <a href="#" onclick="showContent('reviews'); return false">Отзывы</a>
+                <a href="#" onclick="showContent('support'); return false">Поддержка</a>
+            </nav>
+            <div id="reviews" class="content-block">
+                <h3>Отзывы клиентов</h3>
+                <p>Наши клиенты о работе системы</p>
+                <p>Анна</p>
+                «За день до защиты диплома мой принтер решил «уйти в отпуск» — не печатал вообще!
+                Зашла в вашу систему, оформила заявку, и через час мастер уже был у меня.
+                Оказалось, застрял ролик подачи бумаги. Починили за 20 минут,
+                и я успела распечатать все материалы. Спасибо, вы спасли мою сессию! 😊»
+                <p></p>
+                Валентина Петровна
+                «Сын подарил новый компьютер, а я его случайно залила чаем... 
+                Боялась, что сломала навсегда. Внучка помогла отправить заявку через ваш сайт.
+                Мастер приехал на следующий день, починил всё, еще и объяснил, как аккуратнее обращаться.
+                Теперь знаю: даже если что-то случится — вы поможете! Спасибо за терпение!»
+            </div>    
+            <div id="support" class="content-block">
+                <h3>Техническая поддержка</h3>
+                <p>Телефон: +7 (999) 999-99-99</p>
+            </div>
+        </div>
+    </footer class="footer index-footer">
+    
+    <script>
+        // Единая функция для управления контентом
+        function showContent(contentId) {
+            // Скрываем все блоки
+            document.querySelectorAll('.content-block').forEach(block => {
+                block.classList.remove('active');
+            });
+            
+            // Показываем нужный блок
+            const activeBlock = document.getElementById(contentId);
+            if (activeBlock) {
+                activeBlock.classList.add('active');
+            }
+            
+            // Прокрутка к контенту (опционально)
+            activeBlock.scrollIntoView({ behavior: 'smooth' });
+        }
+        </script>
+    <script>
+        function showContent(id) {
+            // Скрыть все блоки
+            document.querySelectorAll('.content-block').forEach(block => {
+                block.style.display = 'none';
+            });
+            // Показать выбранный блок
+            document.getElementById(id).style.display = 'block';
+        }
+        </script>
+    <script>
+        window.addEventListener('load', () => {
+            document.querySelector('.hero-image-left').classList.add('animate-left');
+            document.querySelector('.hero-image-right').classList.add('animate-right');
+        });
+    </script>
+    <script>
+        document.querySelector('.hero-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            // Прокрутка к секции с формой (добавьте id вашей форме)
+            document.getElementById('request-form-section').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+            // Дополнительная анимация кнопки
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 200);
+        });
+        </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('requestForm');
+        const requestsContainer = document.getElementById('requestsList');
+
+        // Функция для добавления заявки в DOM
+        function addRequestToDOM(request) {
+            const newRequest = document.createElement('div');
+            newRequest.className = 'request-card p-3 mb-3 bg-white rounded';
+            newRequest.innerHTML = `
+                <div class="d-flex justify-content-between">
+                    <span class="badge new-status">${request.status}</span>
+                    <small class="text-muted">${request.formatted_date}</small>
+                </div>
+                <h5>${request.equipment_type} (${request.model_number})</h5>
+                <p>${request.problem_description}</p>
+                <div class="text-muted small">Срочность: ${request.urgency}</div>
+            `;
+            requestsContainer.prepend(newRequest);
+                form.reset();
+
+                setTimeout(() => {
+                    newRequest.classList.remove('new-request');
+                }, 400);
+            };
+        });
+    </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('requestForm');
+    const requestsContainer = document.getElementById('requestsList');
+
+    // Загрузка существующих заявок
+    fetch('/api/requests')
+        .then(response => response.json())
+        .then(requests => {
+            requests.forEach(request => {
+                addRequestToDOM(request);
+            });
+        });
+
+    // Отправка новой заявки
+    form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const requestData = {
+                equipmentType: document.getElementById('equipmentType').value,
+                modelNumber: document.getElementById('modelNumber').value,
+                problemDescription: document.getElementById('problemDescription').value,
+                urgency: document.querySelector('input[name="urgency"]:checked').value
+            };
+
+            try {
+                const response = await fetch('/api/requests', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestData)
+                });
+
+                if (response.ok) {
+                    const newRequest = await response.json();
+                    addRequestToDOM(newRequest);
+                    form.reset();
+                    
+                // Показываем анимацию
+                            const notification = document.getElementById('successNotification');
+                            notification.classList.add('show');
+                            setTimeout(() => {
+                                notification.classList.remove('show');
+                            }, 3000);
+                }
+            } catch (error) {
+                console.error('Ошибка:', error);
+            }
+        });
+    });
+
+    function addRequestToDOM(request) {
+        const newRequest = document.createElement('div');
+        newRequest.className = 'request-card p-3 mb-3 bg-white rounded';
+        newRequest.innerHTML = `
+            <div class="d-flex justify-content-between">
+                <span class="badge new-status">${request.status}</span>
+                <small class="text-muted">${new Date(request.created_at).toLocaleDateString()}</small>
+            </div>
+            <h5>${request.equipment_type} (${request.model_number})</h5>
+            <p>${request.problem_description}</p>
+            <div class="text-muted small">Срочность: ${request.urgency}</div>
+        `;
+        requestsContainer.prepend(newRequest);
+    }
+
+    
+        function addRequestToDOM(request) {
+    const newRequest = document.createElement('div');
+    newRequest.className = 'request-card p-3 mb-3 bg-white rounded';
+    newRequest.innerHTML = `
+        <div class="d-flex justify-content-between">
+            <span class="badge new-status">${request.status}</span>
+            <small class="text-muted">${new Date(request.created_at).toLocaleDateString()}</small>
+        </div>
+        <h5>${request.equipment_type} (${request.model_number})</h5>
+        <p>${request.problem_description}</p>
+        <div class="text-muted small">Срочность: ${request.urgency}</div>
+    `;
+    requestsContainer.prepend(newRequest);
+}
+   
+    </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</div>
+</body class="index-page">
+</html>

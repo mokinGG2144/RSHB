@@ -1,0 +1,669 @@
+:root {
+    --main-green: #2E7D32;
+    --light-green: #C8E6C9;
+    --bg-green: #F1F8E9;
+}
+
+body {
+    background-color: var(--bg-green);
+     margin: 0;
+}
+
+.navbar {
+    background: var(--main-green)!important;
+}
+
+.btn-primary {
+    background: var(--main-green);
+    border: none;
+}
+
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 15px;
+}
+
+.new-status {background: var(--light-green);}
+.in-work {background: #FFF59D;}
+.done {background: #C8E6C9;}
+
+.request-card {
+    border-left: 4px solid var(--main-green);
+    transition: 0.3s;
+}
+
+.request-card:hover {
+    transform: translateY(-3px);
+}
+
+/* Добавленные стили для функциональности */
+.form-control:focus {
+    border-color: var(--main-green);
+    box-shadow: 0 0 0 0.2rem rgba(46,125,50,0.25);
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.new-request {
+    animation: slideIn 0.4s ease-out;
+}
+
+.hero-section {
+    width: 100%;
+    height: 664px;
+    background: url('images/fon.png') no-repeat center center/cover;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    padding-top: 90px;
+}
+
+.hero-content h1 {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    margin: 0;
+   
+    
+}
+
+.hero-button {
+    font-family: 'Montserrat Alternates', sans-serif;
+    width: 300px;
+    height: 90px;
+    background-color: #2E7D32;
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    margin-top: 90px;
+    cursor: pointer;
+}
+
+.hero-image {
+    position: absolute;
+    top: 100px;
+    transition: transform 1.5s ease;
+}
+
+.hero-image-left {
+    left: -20%;
+    width: 509px;
+    height: 519px;
+}
+
+.hero-image-right {
+    right: -30%;
+    width: 735px;
+    height: 419px;
+}
+
+.animate-left {
+    transform: translateX(90%);
+}
+
+.animate-right {
+    transform: translateX(-75%);
+}
+ .auth-page-link {
+    border: 2px solid white;
+    border-radius: 25px;
+    padding: 8px 25px;
+}
+.hero-section {
+    position: relative;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-button {
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    background: #2E7D32;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+/* Эффект при наведении */
+.hero-button:hover {
+    background: #1B5E20;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(46,125,50,0.3);
+}
+
+/* Эффект при нажатии */
+.hero-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 5px 10px rgba(46,125,50,0.3);
+}
+
+.toy-transport-block {
+    margin-top: 46px;
+    display: flex;
+    justify-content: center;
+    padding: 50px
+}
+
+.toy-transport {
+
+    margin-right: 40px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+}
+
+.toy-transport:hover {
+    box-shadow: 0 0 10px rgb(255, 255, 255);
+}
+
+.toy-transport:last-child {
+    margin-right: 0;
+}
+
+.transport-image {
+    width: 80px;
+    height: 80px;
+    float: left;
+    margin-left: 28px;
+}
+
+.transport-info {
+    margin-left: 5px;
+    margin-top: 5px;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 20px;
+}
+
+.transport-name {
+    font-weight: 600;
+    color: white;
+}
+
+/* Дополнительные стили при наведении */
+.transport-button:hover {
+    width: 300px;
+    height: 80px;
+    background-color: #245827; /* Темно-зеленый при наведении */
+}
+
+.transport-button {
+    font-family: 'Montserrat Alternates', sans-serif;
+    background-color: #498849; /* Зеленый цвет */
+    border: none; /* Убираем границу */
+    color: white; /* Белый текст */
+    width: 300px;
+    height: 80px;
+    border-radius: 10px; /* Скругление углов */
+    cursor: pointer; /* Указатель при наведении */
+    font-size: 20px; /* Размер текста */
+}
+
+.auth-form {
+    display: none;
+}
+.auth-form.active {
+    display: block;
+}
+
+/* Стили для подвала */
+.footer {
+    background: var(--main-green);
+    padding: 40px 0;
+    color: white;
+    margin-top: 339px
+}
+
+.footer-logo {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer a:hover {
+    color: var(--light-green);
+    transform: translateY(-2px);
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 767px) {
+    .navbar-brand img {
+        width: 120px;
+    }
+
+    .auth-page-link {
+        padding: 6px 15px;
+        font-size: 14px;
+    }
+
+    .hero-section {
+        height: 500px;
+    }
+
+    .hero-content h1 {
+        font-size: 24px;
+    }
+
+    .hero-button {
+        width: 200px;
+        height: 60px;
+        font-size: 18px;
+        margin-top: 50px;
+    }
+
+    .hero-image {
+        display: none;
+    }
+
+    .toy-transport-block {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .toy-transport {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .form-select.w-50 {
+        width: 100% !important;
+    }
+
+    .footer {
+        margin-top: 100px;
+    }
+}
+
+/* Адаптивность для планшетов (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .hero-image-left {
+        left: -50%;
+        width: 300px;
+    }
+
+    .hero-image-right {
+        right: -50%;
+        width: 400px;
+    }
+}
+
+/* Общие стили для изображений */
+img {
+    max-width: 100%;
+    height: auto;
+}
+.content-block {
+    padding: 20px;
+    margin: 20px 0;
+    border: 20px solid #5aa55a;
+    border-radius: 8px;
+    background: #F1F8E9;
+}
+/* Общие стили для контент-блоков */
+.content-block {
+    display: none;
+    padding: 20px;
+    background: #F1F8E9;
+    color: #000000; /* Черный текст */
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+.content-block.active {
+    display: block;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.admin-table {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.status-select {
+    width: 120px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.status-select:hover {
+    transform: scale(1.05);
+}
+
+.alert-success {
+    background: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.alert-danger {
+    background: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.auth-page-link {
+    border: 2px solid white;
+    border-radius: 25px;
+    padding: 8px 25px;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+.auth-page-link:hover {
+    background: rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+}
+/* Центрирование и ограничение ширины */
+.auth-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+    .auth-form {
+        max-width: 100%;
+        margin: 0 15px;
+    }
+}
+
+/* Фикс для полей ввода */
+.card-body {
+    padding: 1.5rem;
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 10px 15px;
+}
+/* Исправления для форм */
+.auth-form {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.auth-form .form-control {
+    margin-bottom: 1rem;
+}
+
+.auth-form button[type="submit"] {
+    margin-top: 1rem;
+}
+
+/* Исправление отображения заявок */
+#requestsList {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.request-card {
+    transition: transform 0.2s;
+}
+
+.request-card:hover {
+    transform: translateY(-3px);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .hero-section {
+        height: auto;
+        padding: 2rem 0;
+    }
+    
+    .hero-button {
+        width: 100%;
+        margin-top: 1rem;
+    }
+    
+    .toy-transport-block {
+        flex-direction: column;
+    }
+}
+
+.request-card {
+    border-left: 4px solid #2E7D32;
+    margin-bottom: 1rem;
+}
+
+.footer {
+    background: #2E7D32;
+    padding: 2rem 0;
+    
+}
+
+.content-block {
+    display: none;
+    padding: 1rem;
+    margin: 1rem 0;
+    background: #F1F8E9;
+    border-radius: 8px;
+}
+
+.content-block.active {
+    display: block;
+}
+
+/* Стили для админ-таблицы */
+.table-admin {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.table-admin thead {
+    background: #2E7D32;
+    color: white;
+}
+
+.table-admin th {
+    border-bottom: 2px solid #1B5E20;
+}
+
+/* Иконки Bootstrap */
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+
+
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Уберите фиксированный margin-top из существующих стилей */
+.footer {
+    background: #2E7D32;
+    padding: 40px 0;
+    color: white;
+    /* Удалите margin-top: 339px если он есть */
+}
+
+.request-card {
+    transition: transform 0.3s ease;
+}
+
+.new-request {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0,255,0,0.5);
+}
+
+@media (max-width: 992px) {
+    .navbar-collapse {
+        background: #2E7D32; /* Цвет фона меню */
+        padding: 20px;
+        margin-top: 10px;
+        border-radius: 5px;
+    }
+    
+    .nav-link {
+        margin: 5px 0;
+        padding: 10px !important;
+    }
+}
+
+/* Центрирование формы на странице */
+#requestForm {
+    max-width: 600px; 
+    margin: 0 auto;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+    #requestForm {
+        padding: 0 15px;
+    }
+}
+
+
+/* Анимация успешной отправки */
+@keyframes slideInFromTop {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.success-notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2E7D32;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    display: none;
+    align-items: center;
+    gap: 10px;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    animation: slideInFromTop 0.5s ease-out;
+}
+
+.success-notification.show {
+    display: flex;
+}
+
+.success-icon {
+    width: 24px;
+    height: 24px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>');
+}
+
+
+/* Анимация кнопки при нажатии */
+@keyframes buttonPress {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+.btn-primary:active {
+    animation: buttonPress 0.3s ease;
+}
+
+/* Блок с кнопками */
+.toy-transport-block {
+    padding: 22px 0;
+}
+
+/* Стили кнопок для мобильных */
+.transport-button {
+    font-size: 20px;
+    padding: 12px;
+    white-space: normal; /* Разрешаем перенос текста */
+    line-height: 1.3;
+}
+
+/* Адаптация для экранов меньше 768px */
+@media (max-width: 767px) {
+    .transport-button {
+        width: 100% !important;
+        height: auto;
+        min-height: 60px;
+        font-size: 14px;
+        padding: 10px;
+        margin-bottom: 8px;
+    }
+    
+    .toy-transport {
+        margin-right: 0 !important;
+        margin-bottom: 10px;
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+    .transport-button {
+        font-size: 13px;
+        padding: 8px;
+    }
+}
+
+* Убираем отступ только для главной страницы */
+body.index-page .container.mt-5 {
+    margin-bottom: 0 !important;
+}
+
+body.index-page footer.footer {
+    margin-top: 0 !important;
+    padding-top: 22px !important;
+}
+
+/* Для мобильных */
+@media (max-width: 768px) {
+    body.index-page .container.mt-5 {
+        padding-bottom: 0;
+    }
+}
+body.index-page .index-footer {
+    margin-top: -30px;
+}

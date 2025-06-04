@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой профиль</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg text-white">
+        <div class="container">
+            <a class="navbar-brand text-white" href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Логотип">
+            </a>
+
+            <button class="navbar-toggler" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#navbarCollapse" 
+                                aria-controls="navbarCollapse" 
+                                aria-expanded="false" 
+                                aria-label="Переключить навигацию">
+                            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto">
+                    
+                    {% if current_user.is_admin %}
+                        <a href="{{ url_for('admin') }}" class="btn btn-outline-light me-2">Админ-панель</a>
+                    {% endif %}
+                    <a href="{{ url_for('logout') }}" class="btn btn-outline-light">Выйти</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5 flex-grow-1">
+    <h2>Мои заявки</h2>
+    <div id="requestsList">
+        {% for request in requests %}
+        <div class="card mb-3">
+            <div class="card-header d-flex justify-content-between">
+                <span class="badge bg-{{ 'success' if request.status == 'Завершено' else 'warning' }}">
+                    {{ request.status }}
+                </span>
+                <small>{{ request.formatted_date }}</small>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">
+    {{ request.equipment_type }} ({{ request.model_number }})
+</h5>
+                <p class="card-text">{{ request.problem_description }}</p>
+                <div class="text-muted">Срочность: {{ request.urgency }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+    
+    <footer class="footer mt-auto">
+    <div class="container text-center">
+        <!-- Логотип -->
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Логотип" width="120" class="d-inline-block align-text-top">
+        
+        <!-- Ссылки -->
+        <nav class="footer-links">
+            <a href="#" onclick="showContent('reviews'); return false">Отзывы</a>
+            <a href="#" onclick="showContent('support'); return false">Поддержка</a>
+        </nav>
+        
+        <!-- Блоки контента -->
+        <div id="reviews" class="content-block">
+            <h3>Отзывы клиентов</h3>
+            <p>Наши клиенты о работе системы</p>
+            <p>Анна</p>
+            «За день до защиты диплома мой принтер решил «уйти в отпуск» — не печатал вообще!
+            Зашла в вашу систему, оформила заявку, и через час мастер уже был у меня.
+            Оказалось, застрял ролик подачи бумаги. Починили за 20 минут,
+            и я успела распечатать все материалы. Спасибо, вы спасли мою сессию! 😊»
+            <p></p>
+            <p>Валентина Петровна</p>
+            «Сын подарил новый компьютер, а я его случайно залила чаем... 
+            Боялась, что сломала навсегда. Внучка помогла отправить заявку через ваш сайт.
+            Мастер приехал на следующий день, починил всё, еще и объяснил, как аккуратнее обращаться.
+            Теперь знаю: даже если что-то случится — вы поможете! Спасибо за терпение!»
+        </div>
+        
+        <div id="support" class="content-block">
+            <h3>Техническая поддержка</h3>
+            <p>Телефон: +7 (999) 999-99-99</p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    function showContent(contentId) {
+        document.querySelectorAll('.content-block').forEach(block => {
+            block.style.display = 'none';
+        });
+        const target = document.getElementById(contentId);
+        if(target) {
+            target.style.display = 'block';
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+    </script>
+</body>
+</html>
